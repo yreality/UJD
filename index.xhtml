@@ -1,0 +1,150 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>UJD — Unix / Julian date</title>
+    <link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" type="text/html;charset=utf-8"/>
+    <style>
+      /* <![CDATA[ */
+      @import url('reset.css') screen, print;
+      @import url('html5.css') screen, print;
+      
+      @media screen {
+        html, body {
+          height: 100%;
+          font-size: 16pt;
+          line-height: 1.6;
+          color: #111;
+          font-family: Georgia, serif;
+        }
+        body {
+          height: 100%;
+          width: 35em;
+          margin: auto;
+        }
+        
+        #time {
+          margin-left: -1.5em;
+          margin-top: 1em;
+          margin-bottom: 1em;
+          font: 300 350%/1.0 "Diavlo", "Helvetica", sans-serif;
+          border-bottom: 1px solid black;
+        }
+        
+        #time > * {
+          padding-left: 0.25em;
+          padding-right: 0.25em;
+        }
+        #time > #glyph {
+          font: 300 100%/1.0 "Anivers", "Helvetica", sans-serif;
+          font-style: italic;
+        }
+        
+        #time #ksol { color: #DDD; }
+        #time  #sol { color: #777; }
+        #time #usol { color: #777; }
+        
+        #by {
+          font-size: 10pt;
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 4px;
+        }
+        #by a:before {
+          content: '?';
+        }
+        #by a:hover:before {
+          content: '!';
+        }
+      }
+      /* ]]> */
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      /* <![CDATA[ */
+      var updateUJD;
+      
+      window.onload = function () {
+        
+        var getUJD = function () {
+          return (((new(Date)()).getTime() / 1000) / 86400).toFixed(9).split('.'); };
+        
+        var splitSol = function (sol) {
+          return sol
+            .split('').reverse().join('')
+              .match(/\d{1,3}/g).join(' ')
+            .split('').reverse().join('')
+          .split(' '); };
+        
+        var splitSolBits = function (solBits) {
+          return solBits.match(/\d{1,3}/g); };
+        
+        var flashRed = function (element) {
+          element.style.color = '#FF0000';
+        window.setTimeout(function () {
+          element.style.color = null; }, 100);
+        };
+        
+        
+        var ksol = window.document.getElementById("ksol"),
+             sol = window.document.getElementById("sol"),
+            msol = window.document.getElementById("msol"),
+            usol = window.document.getElementById("usol");
+        
+        // TODO: DRY these four functions up. Should be a single recursive function.
+        var update_usol = function (UJD) {
+          var val = splitSolBits(UJD[1])[1],
+            cycle = (parseInt(usol.textContent) > val);
+                 if (parseInt(usol.textContent) != (val-1)) flashRed(usol);
+ usol.textContent = val;
+          if (cycle) update_msol(UJD);
+        };
+        
+        var update_msol = function (UJD) {
+          var val = splitSolBits(UJD[1])[0],
+            cycle = (parseInt(msol.textContent) > val);
+                 if (parseInt(msol.textContent) != (val-1)) flashRed(msol);
+ msol.textContent = val;
+          if (cycle) update_sol(UJD);
+        };
+        
+        var update_sol = function (UJD) {
+          var val = splitSol(UJD[0])[1],
+            cycle = (parseInt(sol.textContent) > val);
+                 if (parseInt(sol.textContent) != (val-1)) flashRed(sol);
+  sol.textContent = val;
+          if (cycle) update_ksol(UJD);
+        };
+        
+        var update_ksol = function (UJD) {
+ ksol.textContent = splitSol(UJD[0])[0];
+        };
+        
+        
+        updateUJD = function (all) { var UJD;
+          update_usol(UJD = getUJD());
+          if (all) {
+            update_msol(UJD);
+             update_sol(UJD);
+            update_ksol(UJD);
+          }
+        };
+        
+        window.setInterval(function () {
+          updateUJD(); }, 86.4);
+          updateUJD(true);
+        
+      };
+      /* ]]> */
+    </script>
+  </head>
+  <body><div id="center-me">
+    <header id="time">
+      <span id="ksol">14</span><span id="sol">763</span><span id="glyph">ſ</span><span id="msol">000</span><span id="usol">000</span>
+    </header>
+    <aside id="by">by: <a href="http://elliottcable.name">elliottcable</a></aside>
+  <!-- </body> -->
+    
+    
+    <script type="text/javascript" charset="utf-8" src="sprintf-0.6.js"/>
+  </div></body>
+</html>
