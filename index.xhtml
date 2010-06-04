@@ -11,11 +11,9 @@
       
       @media screen {
         html, body {
-          height: 100%;
-          font-size: 16pt;
-          line-height: 1.6;
-          color: #111;
-          font-family: Georgia, serif;
+          font: 500 12pt/1.45 Garamond, Georgia, serif;
+          color: #111111;
+          background: #F1F1F1;
         }
         body {
           height: 100%;
@@ -24,10 +22,16 @@
         }
         
         #time {
-          margin-left: -1.5em;
-          margin-top: 1em;
-          margin-bottom: 1em;
+          margin-left: -0.75em;
+          margin-top: -0.20em;
+          margin-bottom: 2.20em;
           font: 300 350%/1.0 "Diavlo", "Helvetica", sans-serif;
+          
+          -webkit-transition: all 0.15s ease-in-out;
+        }
+        #time:hover {
+          margin-top: 0.05em;
+          margin-bottom: 1.95em;
         }
         
         #time > * {
@@ -35,13 +39,37 @@
           padding-right: 0.25em;
         }
         #time > #glyph {
-          font: 300 100%/1.0 "Anivers", "Helvetica", sans-serif;
+          font: 500 100%/1.0 "FertigoPro", Helvetica, sans-serif;
           font-style: italic;
         }
         
-        #time #ksol { color: #DDD; }
-        #time  #sol { color: #777; }
-        #time #usol { color: #777; }
+        #time > #ksol  { color: #DDD; text-shadow: #CCC 0px 0px 2px; }
+        #time >  #sol  { color: #DDD; text-shadow: #CCC 0px 0px 2px; }
+        #time > #glyph { color: #111; text-shadow: #000 0px 0px 2px; }
+        #time > #msol  { color: #111; text-shadow: #000 0px 0px 2px; }
+        #time > #usol  { color: #DDD; text-shadow: #CCC 0px 0px 2px; }
+        
+        
+        header h1, h2, h3, h4, h5, h6 {
+          font: 100 100%/1.0 "MuseoSans", Helvetica, sans-serif;
+          float: right;
+        }
+        section#content > section:before {
+          margin-left: -0.75em;
+          padding-right: 0.75em;
+          font: 500 375%/0.1 "FertigoPro", Helvetica, sans-serif;
+          font-style: italic;
+          color: #DDD;
+          
+          content: 'ſ';
+        }
+        
+        section {
+          padding-bottom: 0.5em;
+        }
+        section p {
+          padding-bottom: 0.5em;
+        }
         
         #by {
           font-size: 10pt;
