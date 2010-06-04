@@ -77,12 +77,6 @@
         var splitSolBits = function (solBits) {
           return solBits.match(/\d{1,3}/g); };
         
-        var flashRed = function (element) {
-          element.style.color = '#FF0000';
-        window.setTimeout(function () {
-          element.style.color = null; }, 100);
-        };
-        
         
         var ksol = window.document.getElementById("ksol"),
              sol = window.document.getElementById("sol"),
@@ -93,7 +87,6 @@
         var update_usol = function (UJD) {
           var val = splitSolBits(UJD[1])[1],
             cycle = (parseInt(usol.textContent) > val);
-                 if (parseInt(usol.textContent) != (val-1)) flashRed(usol);
  usol.textContent = val;
           if (cycle) update_msol(UJD);
         };
@@ -101,7 +94,6 @@
         var update_msol = function (UJD) {
           var val = splitSolBits(UJD[1])[0],
             cycle = (parseInt(msol.textContent) > val);
-                 if (parseInt(msol.textContent) != (val-1)) flashRed(msol);
  msol.textContent = val;
           if (cycle) update_sol(UJD);
         };
@@ -109,7 +101,6 @@
         var update_sol = function (UJD) {
           var val = splitSol(UJD[0])[1],
             cycle = (parseInt(sol.textContent) > val);
-                 if (parseInt(sol.textContent) != (val-1)) flashRed(sol);
   sol.textContent = val;
           if (cycle) update_ksol(UJD);
         };
